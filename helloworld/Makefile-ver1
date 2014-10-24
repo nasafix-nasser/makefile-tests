@@ -1,0 +1,10 @@
+CFLAGS = -g
+reciprocal: main.o reciprocal.o
+	g++ $(CFLAGS) main.o reciprocal.o -o reciprocal
+main.o: main.c reciprocal.hpp
+	gcc $(CFLAGS) -c main.c -o main.o
+reciprocal.o: reciprocal.cpp reciprocal.hpp
+	g++ $(CFLAGS) -c reciprocal.cpp -o reciprocal.o
+
+clean:
+	rm -f *.o reciprocal

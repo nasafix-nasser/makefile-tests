@@ -1,0 +1,39 @@
+1. Use @ before any shell command to suppress it and just showing the outputs
+2. A message like this shows that there is an error.
+	make: *** [all] Error 2
+   "echo $?" shows this error number. see man make for more details.
+3. We have some special macros (called Automatic Variable in GNU make manual) 
+   that should be noted:
+	$@ is the target name (before the colon)
+	$< is the first dependancy (first item after the target)
+	$^ is all dependancis (everything after the colon)
+   This is a sample make file to show this:
+	arget1: dep1
+		@echo target1 commands: 
+		@echo this is the target: $@:$^
+		@echo 
+
+	dep1: dep2 dep3
+		@echo dep1 commands:
+		@echo first item aftercolon is: $<
+		@echo all items aftercolon are: $^
+		@echo 
+
+	dep2:
+		@echo dep2 commands:
+		@echo 
+
+	dep3:
+
+4. You can use .PHONY rule to indicate targets that are not real files.
+   For example here the .PHONY rule keeps make from doing something with a 
+   file named clean.
+	.PHONY: clean
+	clean:
+		rm -f *.o hello
+   
+   So you may run "touch clean" and remove the .PHONY rule and see the result
+   of "make clean" which is "make: `clean' is up to date."
+
+5. 
+
